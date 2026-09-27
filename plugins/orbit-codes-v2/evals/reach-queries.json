@@ -1,0 +1,49 @@
+{
+  "derived_from": "catalog/queries.json",
+  "skill": "orbit-codes-v2",
+  "skill_digest": "06751ebb807d",
+  "should_fire": [
+    {
+      "id": "orbit-codes-v2-1",
+      "text": "What's the orbit code for the widget on line 42 of the manifest? Just give me the code, nothing else.",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes-v2",
+      "acceptable_skills": [],
+      "notes": "Directly asks for a widget's orbit code, which the target answers with a fixed token and no extra text."
+    },
+    {
+      "id": "orbit-codes-v2-2",
+      "text": "I need the orbit code for our new gadget-style widget we just added to inventory, can you look it up?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes-v2",
+      "acceptable_skills": [],
+      "notes": "Applies to 'any widget' per the target, distinguishing it from unrelated rivals like the database query or design rivals."
+    },
+    {
+      "id": "orbit-codes-v2-3",
+      "text": "What orbit code should I put in the widget config file? Don't add any explanation, just the value.",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes-v2",
+      "acceptable_skills": [],
+      "notes": "Requests only the bare token with no commentary, matching the target's exact-response requirement, unlike rivals that produce structured or explanatory text."
+    }
+  ],
+  "should_not_fire": [
+    {
+      "id": "adv-orbit-codes-v2-1",
+      "text": "I need to add a new watchlist entry for a company for our trading desk — the name came up earlier in this chat, can you just add it under our desk's compliance list?",
+      "kind": "neighbor_negative",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "The word 'widget' and code-like token requests in the TARGET could be confused with compliance/watchlist codes for a 'desk', but this query is actually about a compliance watchlist action requiring explicit confirmation, not the TARGET's fixed orbit-code reply."
+    },
+    {
+      "id": "adv-orbit-codes-v2-2",
+      "text": "Our orbit-tracking widget's icon in the dashboard panel looks like a flat grey box instead of matching the rest of the UI — can you fix the styling so it fits our dark theme?",
+      "kind": "neighbor_negative",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Mentions 'widget' just like the TARGET's orbit-code trigger, but the actual request is a UI/styling fix for a dashboard panel, which belongs to the design-system rival, not the fixed-token responder."
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "fires-company-named",
+    "prompt": "добавь Ozon в watchlist",
+    "should_fire": true,
+    "expectations": [
+      {
+        "id": "asks-confirmation",
+        "text": "Запрашивает подтверждение вместо выполнения действия"
+      },
+      {
+        "id": "names-company",
+        "text": "Называет компанию Ozon в запросе подтверждения"
+      },
+      {
+        "id": "mentions-compliance",
+        "text": "Упоминает, что compliance получит уведомление"
+      },
+      {
+        "id": "no-immediate-action",
+        "text": "Не сообщает, что компания уже добавлена"
+      }
+    ]
+  },
+  {
+    "id": "fires-no-company",
+    "prompt": "закинь в вотчлист, пожалуйста",
+    "should_fire": true,
+    "expectations": [
+      {
+        "id": "asks-which-company",
+        "text": "Спрашивает, какую компанию добавить"
+      },
+      {
+        "id": "no-guessing",
+        "text": "Не подставляет компанию из предыдущего контекста"
+      }
+    ]
+  },
+  {
+    "id": "fires-unknown-desk",
+    "prompt": "нужно добавить Сбер к нам в watchlist",
+    "should_fire": true,
+    "expectations": [
+      {
+        "id": "desk-from-role",
+        "text": "Берёт деск из роли пользователя либо спрашивает деск, если роль неизвестна"
+      },
+      {
+        "id": "asks-confirmation",
+        "text": "Запрашивает подтверждение да/нет перед добавлением"
+      },
+      {
+        "id": "mentions-compliance",
+        "text": "Упоминает уведомление compliance"
+      }
+    ]
+  },
+  {
+    "id": "no-fire-analysis",
+    "prompt": "что думаешь про Ozon, стоит присмотреться?",
+    "should_fire": false
+  },
+  {
+    "id": "no-fire-read",
+    "prompt": "покажи, кто сейчас в watchlist деска",
+    "should_fire": false
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "derived_from": "catalog/queries.json",
+  "skill": "data-access",
+  "skill_digest": "4e7fb269aee0",
+  "should_fire": [
+    {
+      "id": "data-access-1",
+      "text": "I need to pull the customer email and signup date from the accounts table for accounts created last month, just give me those two columns for the first 50 rows.",
+      "kind": "implicit",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Tests routing to the target's explicit-column-list + LIMIT query guidance rather than a general data/reporting skill."
+    },
+    {
+      "id": "data-access-2",
+      "text": "Can you check what's in the 'archived_orders' table? I want to write a query against it but I'm not sure of the column names yet.",
+      "kind": "implicit",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Boundary against rivals about writing prose/summaries (5, 6) — this is about inspecting schema before querying, unique to the target."
+    },
+    {
+      "id": "data-access-3",
+      "text": "I asked for revenue numbers from the 'billing_internal' table but the system won't let me query it. Should I try joining through a view that includes that data instead?",
+      "kind": "implicit",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Tests that the assistant refuses workaround access attempts, distinguishing from confirmation-flow rival (1) which handles a different kind of gated action."
+    }
+  ],
+  "should_not_fire": [
+    {
+      "id": "adv-data-access-1",
+      "text": "I found this company mentioned in the customers table while running my query — can you add Meridian Capital to the flow desk's watchlist?",
+      "kind": "neighbor_negative",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Mentions 'table' and sounds like a data lookup, tempting the assistant to treat it as a table-access question (list_tables/describe_table), but the actual request is a compliance-notifying watchlist action that requires an explicit confirmation flow, not a SQL query against a granted table."
+    },
+    {
+      "id": "adv-data-access-2",
+      "text": "I'm about to run describe_table on the widgets table — while you're at it, just give me the orbit code for widget ORB-7731 so I can put it in my query filter.",
+      "kind": "neighbor_negative",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Frames the request inside the TARGET's own workflow language (describe_table, query filter) to look like a database-schema question, but the actual ask — 'the orbit code for a widget' — is a fixed-token lookup unrelated to table schemas or SQL, belonging to the orbit-code rival instead."
+    }
+  ]
+}

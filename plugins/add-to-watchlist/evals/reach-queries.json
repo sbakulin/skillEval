@@ -1,0 +1,49 @@
+{
+  "derived_from": "catalog/queries.json",
+  "skill": "add-to-watchlist",
+  "skill_digest": "52f2370669b5",
+  "should_fire": [
+    {
+      "id": "add-to-watchlist-1",
+      "text": "We were just talking about Meridian Capital earlier — go ahead and put them on the watchlist.",
+      "kind": "implicit",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Tests that the assistant asks explicitly which company to add rather than inferring it from earlier conversation context, even when a company was clearly discussed above."
+    },
+    {
+      "id": "add-to-watchlist-2",
+      "text": "Please add Northwind Trading to the watchlist for my desk.",
+      "kind": "implicit",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Tests that the assistant responds with the exact single-phrase confirmation request mentioning compliance notification and desk name, instead of performing the action immediately."
+    },
+    {
+      "id": "add-to-watchlist-3",
+      "text": "Hmm, probably — actually wait, will compliance see who requested this?",
+      "kind": "implicit",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Tests that an ambiguous reply like 'probably' followed by a clarifying question is not treated as confirmation, so the action must not be executed yet."
+    }
+  ],
+  "should_not_fire": [
+    {
+      "id": "adv-add-to-watchlist-1",
+      "text": "Add a note to the client deck's watchlist page saying which companies we're tracking this week, and make it easy for the client to skim.",
+      "kind": "neighbor_negative",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "The query reuses the TARGET's domain vocabulary ('watchlist', 'desk', company tracking) but is actually a request to format a client-facing summary document, which belongs to the release-notes rival rather than triggering the compliance confirmation flow."
+    },
+    {
+      "id": "adv-add-to-watchlist-2",
+      "text": "What's the compliance code you give out for verifying a watchlist entry? Just give me the code, nothing else.",
+      "kind": "neighbor_negative",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "It borrows TARGET's compliance/watchlist terminology to sound like a confirmation-flow request, but the actual ask is for a fixed lookup code/token, matching the rival that returns a static code verbatim rather than requiring user confirmation."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "derived_from": "catalog/queries.json",
+  "skill": "writing-style",
+  "skill_digest": "9237610def1c",
+  "should_fire": [
+    {
+      "id": "writing-style-1",
+      "text": "I need to write an incident postmortem summary for our customers about last night's outage. I have the raw facts but not sure how to phrase it clearly.",
+      "kind": "implicit",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "Writing an external-facing incident summary matches 'anything a person outside the team will read' and needs the cause-then-implication ordering rule, unlike the release-notes rival which is a fixed template for changelogs."
+    },
+    {
+      "id": "writing-style-2",
+      "text": "Can you tighten up this paragraph I wrote for our investor update? It says 'the new pipeline is 40% faster' but I want to make sure that lands well.",
+      "kind": "implicit",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "Directly matches the target's guidance about needing a baseline for percentage claims, which no rival addresses."
+    },
+    {
+      "id": "writing-style-3",
+      "text": "I drafted a public FAQ answer but I think I'm hedging too much in some spots and overstating certainty in others — can you help me fix the tone?",
+      "kind": "implicit",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "This is about calibrating certainty in externally-read prose, a rule unique to the target and distinct from the rigid, non-prose-editing rivals (release notes template, UI theme rules, DB access rules)."
+    }
+  ],
+  "should_not_fire": [
+    {
+      "id": "adv-writing-style-1",
+      "text": "Write up release notes for our external clients based on this changelog: fixed the login timeout bug, added dark mode toggle, fixed the export CSV crash. Keep it something a non-technical client can read.",
+      "kind": "neighbor_negative",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "The request explicitly says the audience is 'a non-technical client/external reader', which matches the TARGET's 'When to use: Anything a person outside the team will read' trigger, but the actual task is formatting a changelog into release notes with a strict Added/Fixed template, which is RIVAL 6's job, not the TARGET's prose-clarity rules."
+    },
+    {
+      "id": "adv-writing-style-2",
+      "text": "I need to tell our customers that the new caching layer made checkout 40% faster. Can you also update the results panel on our public status page to show that stat clearly with the right accent color and spacing?",
+      "kind": "neighbor_negative",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Mentioning '40% faster' and a stat meant for external readers baits the TARGET's numbers/units rule, but the actual ask is a UI/visual change to a panel component (colors, spacing, glass styling) which belongs to RIVAL 3's design rules, not the TARGET's writing rules."
+    }
+  ]
+}

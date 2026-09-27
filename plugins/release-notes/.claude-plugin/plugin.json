@@ -1,0 +1,11 @@
+{
+  "name": "release-notes",
+  "version": "0.1.0",
+  "description": "Use when asked to turn a list of changes, merged tickets or commits into release notes for clients. Do not use for rewriting or polishing prose that already exists, and not for questions about widgets or data.",
+  "author": {
+    "name": "NanoCast skill registry"
+  },
+  "experimental": {
+    "evals": "evals/suite"
+  }
+}

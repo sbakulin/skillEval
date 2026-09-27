@@ -1,0 +1,53 @@
+{
+  "name": "nanocast",
+  "owner": {
+    "name": "Perfect Art · NanoCast"
+  },
+  "metadata": {
+    "description": "Corporate skills with their evals. One plugin per skill; the git tag <name>--v<version> is the pinned release."
+  },
+  "plugins": [
+    {
+      "name": "add-to-watchlist",
+      "source": "./plugins/add-to-watchlist",
+      "description": "Используй, когда пользователь просит добавить компанию в watchlist деска. Требует подтверждения перед действием: компания, деск, уведомление compliance. Не используй для вопросов о компании, инвестици",
+      "version": "0.1.0"
+    },
+    {
+      "name": "data-access",
+      "source": "./plugins/data-access",
+      "description": "Use when the task needs data out of the platform database: counts, lookups, reports. Do not use for editing data, which is never permitted.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "design-system",
+      "source": "./plugins/design-system",
+      "description": "Use when writing or reviewing any UI for NanoCast: components, pages, styles, colours or spacing. Do not use for backend code.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "orbit-codes",
+      "source": "./plugins/orbit-codes",
+      "description": "Use when someone asks for the orbit code of a widget. Do not use for anything else.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "orbit-codes-v2",
+      "source": "./plugins/orbit-codes-v2",
+      "description": "Use when someone asks for the orbit code of a widget. Do not use for anything else.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "release-notes",
+      "source": "./plugins/release-notes",
+      "description": "Use when asked to turn a list of changes, merged tickets or commits into release notes for clients. Do not use for rewriting or polishing prose that already exists, and not for questions about widgets",
+      "version": "0.1.0"
+    },
+    {
+      "name": "writing-style",
+      "source": "./plugins/writing-style",
+      "description": "Use when writing prose a client will read: reports, summaries, release notes, answers in chat. Do not use for code comments.",
+      "version": "1.0.0"
+    }
+  ]
+}

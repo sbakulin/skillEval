@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "marketplace": "nanocast",
+  "skills": [
+    {
+      "name": "add-to-watchlist",
+      "version": "0.1.0",
+      "status": "proposed",
+      "scope": "tenant",
+      "path": "plugins/add-to-watchlist/skills/add-to-watchlist",
+      "evals": "plugins/add-to-watchlist/evals",
+      "cases": 5,
+      "last_verdict": "fail",
+      "release_tag": "add-to-watchlist--v0.1.0"
+    },
+    {
+      "name": "data-access",
+      "version": "1.0.0",
+      "status": "published",
+      "scope": "org",
+      "path": "plugins/data-access/skills/data-access",
+      "evals": "plugins/data-access/evals",
+      "cases": 0,
+      "last_verdict": null,
+      "release_tag": "data-access--v1.0.0"
+    },
+    {
+      "name": "design-system",
+      "version": "1.0.0",
+      "status": "published",
+      "scope": "org",
+      "path": "plugins/design-system/skills/design-system",
+      "evals": "plugins/design-system/evals",
+      "cases": 0,
+      "last_verdict": null,
+      "release_tag": "design-system--v1.0.0"
+    },
+    {
+      "name": "orbit-codes",
+      "version": "1.0.0",
+      "status": "published",
+      "scope": "tenant",
+      "path": "plugins/orbit-codes/skills/orbit-codes",
+      "evals": "plugins/orbit-codes/evals",
+      "cases": 2,
+      "last_verdict": null,
+      "release_tag": "orbit-codes--v1.0.0"
+    },
+    {
+      "name": "orbit-codes-v2",
+      "version": "1.0.0",
+      "status": "published",
+      "scope": "tenant",
+      "path": "plugins/orbit-codes-v2/skills/orbit-codes-v2",
+      "evals": "plugins/orbit-codes-v2/evals",
+      "cases": 2,
+      "last_verdict": null,
+      "release_tag": "orbit-codes-v2--v1.0.0"
+    },
+    {
+      "name": "release-notes",
+      "version": "0.1.0",
+      "status": "proposed",
+      "scope": "tenant",
+      "path": "plugins/release-notes/skills/release-notes",
+      "evals": "plugins/release-notes/evals",
+      "cases": 5,
+      "last_verdict": "fail",
+      "release_tag": "release-notes--v0.1.0"
+    },
+    {
+      "name": "writing-style",
+      "version": "1.0.0",
+      "status": "published",
+      "scope": "org",
+      "path": "plugins/writing-style/skills/writing-style",
+      "evals": "plugins/writing-style/evals",
+      "cases": 0,
+      "last_verdict": null,
+      "release_tag": "writing-style--v1.0.0"
+    }
+  ]
+}

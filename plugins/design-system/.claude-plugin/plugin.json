@@ -1,0 +1,11 @@
+{
+  "name": "design-system",
+  "version": "1.0.0",
+  "description": "Use when writing or reviewing any UI for NanoCast: components, pages, styles, colours or spacing. Do not use for backend code.",
+  "author": {
+    "name": "NanoCast skill registry"
+  },
+  "experimental": {
+    "evals": "evals/suite"
+  }
+}

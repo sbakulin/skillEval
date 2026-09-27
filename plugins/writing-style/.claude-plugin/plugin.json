@@ -1,0 +1,11 @@
+{
+  "name": "writing-style",
+  "version": "1.0.0",
+  "description": "Use when writing prose a client will read: reports, summaries, release notes, answers in chat. Do not use for code comments.",
+  "author": {
+    "name": "NanoCast skill registry"
+  },
+  "experimental": {
+    "evals": "evals/suite"
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "source": "NanoCast pipeline",
+  "run_at": "2026-09-25T09:10:24.632577+00:00",
+  "verdict": "fail",
+  "skill_sha256": "a518cd8a29d95a13177b021fbdf84bc996df94429855a5a0d9a0c0cb959ce676",
+  "tiers": {
+    "lint": "pass",
+    "catalog": "pass",
+    "ablation": "fail"
+  },
+  "ablation": {
+    "runs_per_case": 3,
+    "delta_mean": 0,
+    "cost_usd": 1.134,
+    "cases": [
+      {
+        "id": "fires-company-named",
+        "should_fire": true,
+        "passed": false,
+        "with_pass_rate": 0,
+        "without_pass_rate": 0,
+        "delta": 0,
+        "reason": "passed 0% of with-skill runs; the bar is 67%"
+      },
+      {
+        "id": "fires-no-company",
+        "should_fire": true,
+        "passed": false,
+        "with_pass_rate": 0,
+        "without_pass_rate": 0.667,
+        "delta": -0.333,
+        "reason": "passed 0% of with-skill runs; the bar is 67%"
+      },
+      {
+        "id": "fires-unknown-desk",
+        "should_fire": true,
+        "passed": false,
+        "with_pass_rate": 0,
+        "without_pass_rate": 0,
+        "delta": 0.333,
+        "reason": "passed 0% of with-skill runs; the bar is 67%"
+      },
+      {
+        "id": "no-fire-analysis",
+        "should_fire": false,
+        "passed": true,
+        "with_pass_rate": 1,
+        "without_pass_rate": 1,
+        "delta": 0,
+        "reason": "stayed out of the way in every run"
+      },
+      {
+        "id": "no-fire-read",
+        "should_fire": false,
+        "passed": true,
+        "with_pass_rate": 1,
+        "without_pass_rate": 1,
+        "delta": 0,
+        "reason": "stayed out of the way in every run"
+      }
+    ]
+  },
+  "catalog": {
+    "metrics": {
+      "hits": 3,
+      "recall": 1,
+      "strays": 0,
+      "misroutes": 0,
+      "neighbour": 5,
+      "own_negative": 2,
+      "own_positive": 3,
+      "misroute_rate": 0
+    },
+    "reason": "reached 3/3 of its own prompts; stayed out of 5/5 neighbour prompts",
+    "probes": [
+      {
+        "prompt": "добавь Ozon в watchlist",
+        "source": "own_positive",
+        "expected_skill": "nanocast-add-to-watchlist",
+        "fired_skills": [
+          "nanocast-add-to-watchlist"
+        ],
+        "outcome": "hit",
+        "origin": "cases"
+      },
+      {
+        "prompt": "закинь в вотчлист, пожалуйста",
+        "source": "own_positive",
+        "expected_skill": "nanocast-add-to-watchlist",
+        "fired_skills": [
+          "nanocast-add-to-watchlist"
+        ],
+        "outcome": "hit",
+        "origin": "cases"
+      },
+      {
+        "prompt": "нужно добавить Сбер к нам в watchlist",
+        "source": "own_positive",
+        "expected_skill": "nanocast-add-to-watchlist",
+        "fired_skills": [
+          "nanocast-add-to-watchlist"
+        ],
+        "outcome": "hit",
+        "origin": "cases"
+      },
+      {
+        "prompt": "что думаешь про Ozon, стоит присмотреться?",
+        "source": "own_negative",
+        "expected_skill": null,
+        "fired_skills": [],
+        "outcome": "clean",
+        "origin": "cases"
+      },
+      {
+        "prompt": "покажи, кто сейчас в watchlist деска",
+        "source": "own_negative",
+        "expected_skill": null,
+        "fired_skills": [
+          "nanocast-data-access"
+        ],
+        "outcome": "clean",
+        "origin": "cases"
+      },
+      {
+        "prompt": "I need help fixing the button styling and spacing on our sign-up page.",
+        "source": "neighbour",
+        "expected_skill": "nanocast-design-system",
+        "fired_skills": [
+          "nanocast-design-system"
+        ],
+        "outcome": "clean",
+        "origin": "generated"
+      },
+      {
+        "prompt": "How many open support tickets do we have this month?",
+        "source": "neighbour",
+        "expected_skill": "nanocast-data-access",
+        "fired_skills": [
+          "nanocast-data-access"
+        ],
+        "outcome": "clean",
+        "origin": "generated"
+      },
+      {
+        "prompt": "Make this sound more professional and polished for my client report.",
+        "source": "neighbour",
+        "expected_skill": "nanocast-writing-style",
+        "fired_skills": [
+          "nanocast-writing-style"
+        ],
+        "outcome": "clean",
+        "origin": "generated"
+      },
+      {
+        "prompt": "What is the orbit code for widget 12?",
+        "source": "neighbour",
+        "expected_skill": "nanocast-orbit-codes",
+        "fired_skills": [
+          "nanocast-orbit-codes-v2"
+        ],
+        "outcome": "clean",
+        "origin": "cases"
+      },
+      {
+        "prompt": "What is the orbit code for widget 12?",
+        "source": "neighbour",
+        "expected_skill": "nanocast-orbit-codes-v2",
+        "fired_skills": [
+          "nanocast-orbit-codes-v2"
+        ],
+        "outcome": "clean",
+        "origin": "cases"
+      }
+    ]
+  },
+  "verdict_reasons": [
+    "case \"fires-company-named\": passed 0% of with-skill runs; the bar is 67%",
+    "case \"fires-no-company\": passed 0% of with-skill runs; the bar is 67%",
+    "case \"fires-unknown-desk\": passed 0% of with-skill runs; the bar is 67%",
+    "the skill adds nothing: mean Δ over should-fire cases is 0 (with the skill the model scored no better than without it)"
+  ]
+}

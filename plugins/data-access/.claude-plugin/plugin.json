@@ -1,0 +1,11 @@
+{
+  "name": "data-access",
+  "version": "1.0.0",
+  "description": "Use when the task needs data out of the platform database: counts, lookups, reports. Do not use for editing data, which is never permitted.",
+  "author": {
+    "name": "NanoCast skill registry"
+  },
+  "experimental": {
+    "evals": "evals/suite"
+  }
+}

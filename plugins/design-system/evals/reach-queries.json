@@ -1,0 +1,49 @@
+{
+  "derived_from": "catalog/queries.json",
+  "skill": "design-system",
+  "skill_digest": "c7bcf2649d52",
+  "should_fire": [
+    {
+      "id": "design-system-1",
+      "text": "I added a new settings panel component but it's just a flat grey box with a border - what should I do instead to match the rest of the app?",
+      "kind": "implicit",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "UI styling question about panel treatment answerable only from TARGET's rules on glass utilities; not covered by rivals (release notes, SQL, external comms, orbit code, compliance)."
+    },
+    {
+      "id": "design-system-2",
+      "text": "I want to add a green 'success' badge next to my existing purple buttons to highlight completed items, is that fine?",
+      "kind": "implicit",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Tests boundary against RIVAL 6 (writing rules for external readers) — this is visually about UI color choice, not prose, so only TARGET answers it."
+    },
+    {
+      "id": "design-system-3",
+      "text": "The new card I built needs 10px of padding to look right, but everything else in the app uses 8 or 16 - should I just use 10px here?",
+      "kind": "implicit",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Spacing/layout question specific to visual UI work, distinct from RIVAL 5's release-notes formatting rules which also involve strict numeric constraints but for text word counts, not UI spacing."
+    }
+  ],
+  "should_not_fire": [
+    {
+      "id": "adv-design-system-1",
+      "text": "We just redesigned the settings screen — swapped the flat grey boxes for glass panels and added the new violet accent on the buttons. Can you write up the release notes for our clients summarizing what's new and what got fixed?",
+      "kind": "neighbor_negative",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "The query name-drops the target's exact visual vocabulary (glass panels, violet accent, replacing flat grey boxes) which reads like a request to review or apply the dark-theme/glass design rules, but the actual ask is to produce client-facing release notes describing the change — a documentation-formatting task, not a UI styling task."
+    },
+    {
+      "id": "adv-design-system-2",
+      "text": "I want to explain our new dark theme with the violet accent to people outside the team in a blog post — can you help me communicate why we made this change?",
+      "kind": "neighbor_negative",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "It reuses the target's core terms (dark theme, violet accent) so it looks like a design-review request, but the real task is writing external-facing prose explaining a decision, which is a communication-clarity task rather than applying the glass/spacing/color rules."
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "source": "NanoCast pipeline",
+  "run_at": "2026-09-24T10:55:02.252643+00:00",
+  "verdict": "fail",
+  "skill_sha256": "587e172cb289211d7af607d294653d5f1ee2cb7dbdaf5afe7a4bb4420f680d3c",
+  "tiers": {
+    "lint": "pass",
+    "catalog": "fail",
+    "ablation": "fail"
+  },
+  "ablation": {
+    "runs_per_case": 3,
+    "delta_mean": 0.722,
+    "cost_usd": 1.631,
+    "cases": [
+      {
+        "id": "fires-on-changelog",
+        "should_fire": true,
+        "passed": true,
+        "with_pass_rate": 1,
+        "without_pass_rate": 0,
+        "delta": 0.667,
+        "reason": "passed 100% of with-skill runs"
+      },
+      {
+        "id": "fires-on-tickets",
+        "should_fire": true,
+        "passed": true,
+        "with_pass_rate": 1,
+        "without_pass_rate": 0,
+        "delta": 1,
+        "reason": "passed 100% of with-skill runs"
+      },
+      {
+        "id": "fires-on-short-list",
+        "should_fire": true,
+        "passed": false,
+        "with_pass_rate": 0,
+        "without_pass_rate": 0,
+        "delta": 0.5,
+        "reason": "passed 0% of with-skill runs; the bar is 67%"
+      },
+      {
+        "id": "not-for-rewrite",
+        "should_fire": false,
+        "passed": false,
+        "with_pass_rate": 1,
+        "without_pass_rate": 1,
+        "delta": 0,
+        "reason": "a run errored: exit 1: Credit balance is too low"
+      },
+      {
+        "id": "not-for-orbit",
+        "should_fire": false,
+        "passed": true,
+        "with_pass_rate": 1,
+        "without_pass_rate": 1,
+        "delta": 0,
+        "reason": "stayed out of the way in every run"
+      }
+    ]
+  },
+  "catalog": {
+    "metrics": {
+      "hits": 0,
+      "recall": 0,
+      "strays": 0,
+      "misroutes": 0,
+      "neighbour": 2,
+      "own_negative": 2,
+      "own_positive": 3,
+      "misroute_rate": 0
+    },
+    "reason": "recall is 0%: reached on 0 of 3 of its own prompts",
+    "probes": [
+      {
+        "prompt": "Here are this sprint's merged changes: fixed the login timeout, added CSV export on the reports page, new dark theme. Turn them into release notes for our clients.",
+        "source": "own_positive",
+        "expected_skill": "nanocast-release-notes",
+        "fired_skills": [],
+        "outcome": "miss",
+        "origin": "cases"
+      },
+      {
+        "prompt": "Make release notes from these tickets: NC-101 export reports to CSV, NC-114 login no longer times out after 5 minutes, NC-120 dark theme.",
+        "source": "own_positive",
+        "expected_skill": "nanocast-release-notes",
+        "fired_skills": [],
+        "outcome": "miss",
+        "origin": "cases"
+      },
+      {
+        "prompt": "release notes please: faster search, removed the beta banner",
+        "source": "own_positive",
+        "expected_skill": "nanocast-release-notes",
+        "fired_skills": [],
+        "outcome": "miss",
+        "origin": "cases"
+      },
+      {
+        "prompt": "Rewrite this paragraph in our house tone: 'The system was updated and things work better now, users should be happy.'",
+        "source": "own_negative",
+        "expected_skill": null,
+        "fired_skills": [],
+        "outcome": "clean",
+        "origin": "cases"
+      },
+      {
+        "prompt": "What is the orbit code for widget 12?",
+        "source": "own_negative",
+        "expected_skill": null,
+        "fired_skills": [],
+        "outcome": "clean",
+        "origin": "cases"
+      },
+      {
+        "prompt": "What is the orbit code for widget 12?",
+        "source": "neighbour",
+        "expected_skill": "nanocast-orbit-codes",
+        "fired_skills": [],
+        "outcome": "clean",
+        "origin": "cases"
+      },
+      {
+        "prompt": "What is the orbit code for widget 12?",
+        "source": "neighbour",
+        "expected_skill": "nanocast-orbit-codes-v2",
+        "fired_skills": [],
+        "outcome": "clean",
+        "origin": "cases"
+      }
+    ]
+  },
+  "verdict_reasons": [
+    "case \"fires-on-short-list\": passed 0% of with-skill runs; the bar is 67%",
+    "case \"not-for-rewrite\": a run errored: exit 1: Credit balance is too low",
+    "recall is 0%: reached on 0 of 3 of its own prompts"
+  ]
+}

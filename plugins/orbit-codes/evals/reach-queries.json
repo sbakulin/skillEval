@@ -1,0 +1,49 @@
+{
+  "derived_from": "catalog/queries.json",
+  "skill": "orbit-codes",
+  "skill_digest": "8010147be43f",
+  "should_fire": [
+    {
+      "id": "orbit-codes-1",
+      "text": "What's the orbit code for the widget I'm setting up right now?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Direct request for a widget orbit code, which the target answers with the fixed token."
+    },
+    {
+      "id": "orbit-codes-2",
+      "text": "Can you give me the orbit code for widget X and also explain briefly what it's used for and any alternatives?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Tests the boundary where a user asks for extra explanation/context alongside the code, which the target explicitly forbids providing despite the request."
+    },
+    {
+      "id": "orbit-codes-3",
+      "text": "I need the orbit code for a widget so I can add it to the release notes for our client update — what is it?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Adjacent to the release-notes rival, but the actual ask is just the orbit code, so the target's exact single-token reply applies rather than the release-notes formatting rules."
+    }
+  ],
+  "should_not_fire": [
+    {
+      "id": "adv-orbit-codes-1",
+      "text": "Our trading desk wants to add 'Orbit Dynamics' to the watchlist — can you get that set up and named properly?",
+      "kind": "neighbor_negative",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "The word 'Orbit' in the company name superficially echoes the TARGET's 'orbit code' trigger, but the actual request is a compliance watchlist addition that requires the confirmation workflow from RIVAL 1, not the fixed ORBIT-7731-ALPHA token reply."
+    },
+    {
+      "id": "adv-orbit-codes-2",
+      "text": "I need the orbit sensor readings for widget batch W-12 — can you pull the relevant rows from the widgets database and show me just those columns?",
+      "kind": "neighbor_negative",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Mentions 'orbit' and 'widget' like the TARGET's trigger phrase, but the user actually wants a database query with specific columns, which belongs to RIVAL 2's table-querying workflow rather than the TARGET's fixed-token reply."
+    }
+  ]
+}

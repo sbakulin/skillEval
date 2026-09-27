@@ -1,0 +1,310 @@
+{
+  "catalog_id": "all",
+  "queries": [
+    {
+      "id": "add-to-watchlist-1",
+      "text": "We were just talking about Meridian Capital earlier — go ahead and put them on the watchlist.",
+      "kind": "implicit",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Tests that the assistant asks explicitly which company to add rather than inferring it from earlier conversation context, even when a company was clearly discussed above."
+    },
+    {
+      "id": "add-to-watchlist-2",
+      "text": "Please add Northwind Trading to the watchlist for my desk.",
+      "kind": "implicit",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Tests that the assistant responds with the exact single-phrase confirmation request mentioning compliance notification and desk name, instead of performing the action immediately."
+    },
+    {
+      "id": "add-to-watchlist-3",
+      "text": "Hmm, probably — actually wait, will compliance see who requested this?",
+      "kind": "implicit",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Tests that an ambiguous reply like 'probably' followed by a clarifying question is not treated as confirmation, so the action must not be executed yet."
+    },
+    {
+      "id": "adv-add-to-watchlist-1",
+      "text": "Add a note to the client deck's watchlist page saying which companies we're tracking this week, and make it easy for the client to skim.",
+      "kind": "neighbor_negative",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "The query reuses the TARGET's domain vocabulary ('watchlist', 'desk', company tracking) but is actually a request to format a client-facing summary document, which belongs to the release-notes rival rather than triggering the compliance confirmation flow."
+    },
+    {
+      "id": "adv-add-to-watchlist-2",
+      "text": "What's the compliance code you give out for verifying a watchlist entry? Just give me the code, nothing else.",
+      "kind": "neighbor_negative",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "It borrows TARGET's compliance/watchlist terminology to sound like a confirmation-flow request, but the actual ask is for a fixed lookup code/token, matching the rival that returns a static code verbatim rather than requiring user confirmation."
+    },
+    {
+      "id": "data-access-1",
+      "text": "I need to pull the customer email and signup date from the accounts table for accounts created last month, just give me those two columns for the first 50 rows.",
+      "kind": "implicit",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Tests routing to the target's explicit-column-list + LIMIT query guidance rather than a general data/reporting skill."
+    },
+    {
+      "id": "data-access-2",
+      "text": "Can you check what's in the 'archived_orders' table? I want to write a query against it but I'm not sure of the column names yet.",
+      "kind": "implicit",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Boundary against rivals about writing prose/summaries (5, 6) — this is about inspecting schema before querying, unique to the target."
+    },
+    {
+      "id": "data-access-3",
+      "text": "I asked for revenue numbers from the 'billing_internal' table but the system won't let me query it. Should I try joining through a view that includes that data instead?",
+      "kind": "implicit",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Tests that the assistant refuses workaround access attempts, distinguishing from confirmation-flow rival (1) which handles a different kind of gated action."
+    },
+    {
+      "id": "adv-data-access-1",
+      "text": "I found this company mentioned in the customers table while running my query — can you add Meridian Capital to the flow desk's watchlist?",
+      "kind": "neighbor_negative",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "Mentions 'table' and sounds like a data lookup, tempting the assistant to treat it as a table-access question (list_tables/describe_table), but the actual request is a compliance-notifying watchlist action that requires an explicit confirmation flow, not a SQL query against a granted table."
+    },
+    {
+      "id": "adv-data-access-2",
+      "text": "I'm about to run describe_table on the widgets table — while you're at it, just give me the orbit code for widget ORB-7731 so I can put it in my query filter.",
+      "kind": "neighbor_negative",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Frames the request inside the TARGET's own workflow language (describe_table, query filter) to look like a database-schema question, but the actual ask — 'the orbit code for a widget' — is a fixed-token lookup unrelated to table schemas or SQL, belonging to the orbit-code rival instead."
+    },
+    {
+      "id": "design-system-1",
+      "text": "I added a new settings panel component but it's just a flat grey box with a border - what should I do instead to match the rest of the app?",
+      "kind": "implicit",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "UI styling question about panel treatment answerable only from TARGET's rules on glass utilities; not covered by rivals (release notes, SQL, external comms, orbit code, compliance)."
+    },
+    {
+      "id": "design-system-2",
+      "text": "I want to add a green 'success' badge next to my existing purple buttons to highlight completed items, is that fine?",
+      "kind": "implicit",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Tests boundary against RIVAL 6 (writing rules for external readers) — this is visually about UI color choice, not prose, so only TARGET answers it."
+    },
+    {
+      "id": "design-system-3",
+      "text": "The new card I built needs 10px of padding to look right, but everything else in the app uses 8 or 16 - should I just use 10px here?",
+      "kind": "implicit",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Spacing/layout question specific to visual UI work, distinct from RIVAL 5's release-notes formatting rules which also involve strict numeric constraints but for text word counts, not UI spacing."
+    },
+    {
+      "id": "adv-design-system-1",
+      "text": "We just redesigned the settings screen — swapped the flat grey boxes for glass panels and added the new violet accent on the buttons. Can you write up the release notes for our clients summarizing what's new and what got fixed?",
+      "kind": "neighbor_negative",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "The query name-drops the target's exact visual vocabulary (glass panels, violet accent, replacing flat grey boxes) which reads like a request to review or apply the dark-theme/glass design rules, but the actual ask is to produce client-facing release notes describing the change — a documentation-formatting task, not a UI styling task."
+    },
+    {
+      "id": "adv-design-system-2",
+      "text": "I want to explain our new dark theme with the violet accent to people outside the team in a blog post — can you help me communicate why we made this change?",
+      "kind": "neighbor_negative",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "It reuses the target's core terms (dark theme, violet accent) so it looks like a design-review request, but the real task is writing external-facing prose explaining a decision, which is a communication-clarity task rather than applying the glass/spacing/color rules."
+    },
+    {
+      "id": "orbit-codes-1",
+      "text": "What's the orbit code for the widget I'm setting up right now?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Direct request for a widget orbit code, which the target answers with the fixed token."
+    },
+    {
+      "id": "orbit-codes-2",
+      "text": "Can you give me the orbit code for widget X and also explain briefly what it's used for and any alternatives?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Tests the boundary where a user asks for extra explanation/context alongside the code, which the target explicitly forbids providing despite the request."
+    },
+    {
+      "id": "orbit-codes-3",
+      "text": "I need the orbit code for a widget so I can add it to the release notes for our client update — what is it?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes",
+      "acceptable_skills": [],
+      "notes": "Adjacent to the release-notes rival, but the actual ask is just the orbit code, so the target's exact single-token reply applies rather than the release-notes formatting rules."
+    },
+    {
+      "id": "adv-orbit-codes-1",
+      "text": "Our trading desk wants to add 'Orbit Dynamics' to the watchlist — can you get that set up and named properly?",
+      "kind": "neighbor_negative",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "The word 'Orbit' in the company name superficially echoes the TARGET's 'orbit code' trigger, but the actual request is a compliance watchlist addition that requires the confirmation workflow from RIVAL 1, not the fixed ORBIT-7731-ALPHA token reply."
+    },
+    {
+      "id": "adv-orbit-codes-2",
+      "text": "I need the orbit sensor readings for widget batch W-12 — can you pull the relevant rows from the widgets database and show me just those columns?",
+      "kind": "neighbor_negative",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "Mentions 'orbit' and 'widget' like the TARGET's trigger phrase, but the user actually wants a database query with specific columns, which belongs to RIVAL 2's table-querying workflow rather than the TARGET's fixed-token reply."
+    },
+    {
+      "id": "orbit-codes-v2-1",
+      "text": "What's the orbit code for the widget on line 42 of the manifest? Just give me the code, nothing else.",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes-v2",
+      "acceptable_skills": [],
+      "notes": "Directly asks for a widget's orbit code, which the target answers with a fixed token and no extra text."
+    },
+    {
+      "id": "orbit-codes-v2-2",
+      "text": "I need the orbit code for our new gadget-style widget we just added to inventory, can you look it up?",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes-v2",
+      "acceptable_skills": [],
+      "notes": "Applies to 'any widget' per the target, distinguishing it from unrelated rivals like the database query or design rivals."
+    },
+    {
+      "id": "orbit-codes-v2-3",
+      "text": "What orbit code should I put in the widget config file? Don't add any explanation, just the value.",
+      "kind": "implicit",
+      "expected_skill": "orbit-codes-v2",
+      "acceptable_skills": [],
+      "notes": "Requests only the bare token with no commentary, matching the target's exact-response requirement, unlike rivals that produce structured or explanatory text."
+    },
+    {
+      "id": "adv-orbit-codes-v2-1",
+      "text": "I need to add a new watchlist entry for a company for our trading desk — the name came up earlier in this chat, can you just add it under our desk's compliance list?",
+      "kind": "neighbor_negative",
+      "expected_skill": "add-to-watchlist",
+      "acceptable_skills": [],
+      "notes": "The word 'widget' and code-like token requests in the TARGET could be confused with compliance/watchlist codes for a 'desk', but this query is actually about a compliance watchlist action requiring explicit confirmation, not the TARGET's fixed orbit-code reply."
+    },
+    {
+      "id": "adv-orbit-codes-v2-2",
+      "text": "Our orbit-tracking widget's icon in the dashboard panel looks like a flat grey box instead of matching the rest of the UI — can you fix the styling so it fits our dark theme?",
+      "kind": "neighbor_negative",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Mentions 'widget' just like the TARGET's orbit-code trigger, but the actual request is a UI/styling fix for a dashboard panel, which belongs to the design-system rival, not the fixed-token responder."
+    },
+    {
+      "id": "release-notes-1",
+      "text": "I have a bunch of Jira tickets and commit messages for this sprint, can you turn them into something I can send to customers describing what's new and what got fixed?",
+      "kind": "implicit",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "Directly matches the target's core purpose of converting raw changes into client-facing release notes, distinct from rival 6's general external-writing rules."
+    },
+    {
+      "id": "release-notes-2",
+      "text": "I have a list of internal ticket fixes for this sprint — can you turn it into short release notes our customers will actually see in the changelog?",
+      "kind": "implicit",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "This targets the core purpose of the skill (client-facing release notes from a raw change list) rather than rival 6's general external-writing rules, since it needs the specific structure (headings, word limit, ticket redaction)."
+    },
+    {
+      "id": "release-notes-3",
+      "text": "Draft the changelog entry for this release — group the bug fixes and new features under headings, keep it super short, and don't leak any of our internal branch or module names.",
+      "kind": "implicit",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "This asks for the precise Added/Fixed structure and word-limit/internal-name redaction that only the target documentation specifies, distinguishing it from rival 6's generic 'writing for outsiders' rules which lack headings, word counts, or bullet format."
+    },
+    {
+      "id": "adv-release-notes-1",
+      "text": "We're emailing the top 3 clients tonight about the outage postmortem — can you write it up: what happened, then what it means for them, with the latency numbers and baseline included?",
+      "kind": "neighbor_negative",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "The request mentions client-facing writing about changes/incidents, which superficially overlaps with the TARGET's 'release notes a client can read' framing, but it's actually an external incident postmortem needing claim-per-sentence rigor and sourced numbers — a job for the general external-communication rival, not the strict Added/Fixed release-notes template."
+    },
+    {
+      "id": "adv-release-notes-2",
+      "text": "Can you pull the list of every bug fixed this sprint from the tickets table so I can turn it into notes for the client?",
+      "kind": "neighbor_negative",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "It name-drops 'fixed' and 'client notes,' echoing the TARGET's Added/Fixed release-notes format, but the actual ask is to query a database table for ticket data — that's the database-access rival's job, and only after that would formatting even become relevant."
+    },
+    {
+      "id": "writing-style-1",
+      "text": "I need to write an incident postmortem summary for our customers about last night's outage. I have the raw facts but not sure how to phrase it clearly.",
+      "kind": "implicit",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "Writing an external-facing incident summary matches 'anything a person outside the team will read' and needs the cause-then-implication ordering rule, unlike the release-notes rival which is a fixed template for changelogs."
+    },
+    {
+      "id": "writing-style-2",
+      "text": "Can you tighten up this paragraph I wrote for our investor update? It says 'the new pipeline is 40% faster' but I want to make sure that lands well.",
+      "kind": "implicit",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "Directly matches the target's guidance about needing a baseline for percentage claims, which no rival addresses."
+    },
+    {
+      "id": "writing-style-3",
+      "text": "I drafted a public FAQ answer but I think I'm hedging too much in some spots and overstating certainty in others — can you help me fix the tone?",
+      "kind": "implicit",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "This is about calibrating certainty in externally-read prose, a rule unique to the target and distinct from the rigid, non-prose-editing rivals (release notes template, UI theme rules, DB access rules)."
+    },
+    {
+      "id": "adv-writing-style-1",
+      "text": "Write up release notes for our external clients based on this changelog: fixed the login timeout bug, added dark mode toggle, fixed the export CSV crash. Keep it something a non-technical client can read.",
+      "kind": "neighbor_negative",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "The request explicitly says the audience is 'a non-technical client/external reader', which matches the TARGET's 'When to use: Anything a person outside the team will read' trigger, but the actual task is formatting a changelog into release notes with a strict Added/Fixed template, which is RIVAL 6's job, not the TARGET's prose-clarity rules."
+    },
+    {
+      "id": "adv-writing-style-2",
+      "text": "I need to tell our customers that the new caching layer made checkout 40% faster. Can you also update the results panel on our public status page to show that stat clearly with the right accent color and spacing?",
+      "kind": "neighbor_negative",
+      "expected_skill": "design-system",
+      "acceptable_skills": [],
+      "notes": "Mentioning '40% faster' and a stat meant for external readers baits the TARGET's numbers/units rule, but the actual ask is a UI/visual change to a panel component (colors, spacing, glass styling) which belongs to RIVAL 3's design rules, not the TARGET's writing rules."
+    }
+  ],
+  "notes": "Generator arm: content. Adversarial: 2. Synthesized by `reach eval` from SKILL.md bodies with skill metadata masked and citations verified against target bodies. Review before probing: authored queries override synthetic benchmarks.",
+  "provenance": {
+    "origin": "generated",
+    "recorded_at": "2026-09-27T12:14:44.270963Z",
+    "tool_version": "0.1.0",
+    "generator_model": "claude-sonnet-5",
+    "generator_arm": "content",
+    "queries_per_target": 3,
+    "rivals_in_view": 6,
+    "bodies_digest": "4c1e079db9e3",
+    "skill_digests": {
+      "add-to-watchlist": "52f2370669b5",
+      "data-access": "4e7fb269aee0",
+      "design-system": "c7bcf2649d52",
+      "orbit-codes": "8010147be43f",
+      "orbit-codes-v2": "06751ebb807d",
+      "release-notes": "074bf70886ba",
+      "writing-style": "9237610def1c"
+    },
+    "config_fingerprint": "9c6b78cc4645",
+    "source": "",
+    "reviewed": null,
+    "adversarial": true,
+    "adversarial_per_target": 2
+  }
+}

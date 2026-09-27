@@ -1,0 +1,19 @@
+[
+  {
+    "id": "gives-the-code",
+    "prompt": "What is the orbit code for widget 12?",
+    "should_fire": true,
+    "expectations": [
+      {
+        "id": "e1",
+        "text": "The answer contains the token ORBIT-7731-ALPHA"
+      }
+    ]
+  },
+  {
+    "id": "unrelated",
+    "prompt": "What is the capital of France?",
+    "should_fire": false,
+    "expectations": []
+  }
+]

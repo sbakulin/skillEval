@@ -1,0 +1,11 @@
+{
+  "name": "orbit-codes",
+  "version": "1.0.0",
+  "description": "Use when someone asks for the orbit code of a widget. Do not use for anything else.",
+  "author": {
+    "name": "NanoCast skill registry"
+  },
+  "experimental": {
+    "evals": "evals/suite"
+  }
+}

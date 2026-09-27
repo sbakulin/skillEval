@@ -1,0 +1,52 @@
+name: skills
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * 1"   # weekly re-eval, Monday 05:00 UTC
+
+jobs:
+  static:
+    # Free and fast: runs on every push. No secrets, no model calls.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: npm i -g @anthropic-ai/claude-code@2.1.276   # the version the agents run
+      - name: manifests are valid
+        run: |
+          claude plugin validate --strict .
+          for p in plugins/*; do claude plugin validate --strict "$p"; done
+      - name: generated eval files are current
+        run: python3 scripts/build_evals.py --check
+      - name: tier 0 · reach lint
+        run: |
+          mkdir -p /tmp/catalog && cp -R plugins/*/skills/* /tmp/catalog/
+          uvx --from "git+https://github.com/google/skill-reach@e620c06cdfd191c8ab8b7d26b24e2493dc390eda" reach lint /tmp/catalog --format github
+
+  reeval:
+    # Paid: model calls. Only on schedule or by hand, and only with the secret set.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: static
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: npm i -g @anthropic-ai/claude-code@2.1.276   # the version the agents run
+      - name: re-evaluate every skill
+        if: env.ANTHROPIC_API_KEY != ''
+        run: scripts/reeval.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: reeval, path: results/ }
+      - name: summary
+        if: always()
+        run: cat results/*/SUMMARY.md >> "$GITHUB_STEP_SUMMARY" || true

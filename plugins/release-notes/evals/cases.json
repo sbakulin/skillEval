@@ -1,0 +1,63 @@
+[
+  {
+    "id": "fires-on-changelog",
+    "prompt": "Here are this sprint's merged changes: fixed the login timeout, added CSV export on the reports page, new dark theme. Turn them into release notes for our clients.",
+    "should_fire": true,
+    "expectations": [
+      {
+        "id": "two-sections",
+        "text": "has both an 'Added' section and a 'Fixed' section as headings"
+      },
+      {
+        "id": "who-affects",
+        "text": "contains a line beginning with 'Who this affects'"
+      },
+      {
+        "id": "all-three",
+        "text": "mentions all three changes: the login timeout fix, CSV export, and the dark theme"
+      }
+    ]
+  },
+  {
+    "id": "fires-on-tickets",
+    "prompt": "Make release notes from these tickets: NC-101 export reports to CSV, NC-114 login no longer times out after 5 minutes, NC-120 dark theme.",
+    "should_fire": true,
+    "expectations": [
+      {
+        "id": "no-ticket-ids",
+        "text": "does not contain the ticket identifiers NC-101, NC-114 or NC-120"
+      },
+      {
+        "id": "two-sections",
+        "text": "has both an 'Added' section and a 'Fixed' section as headings"
+      }
+    ]
+  },
+  {
+    "id": "fires-on-short-list",
+    "prompt": "release notes please: faster search, removed the beta banner",
+    "should_fire": true,
+    "expectations": [
+      {
+        "id": "release-heading",
+        "text": "starts with a heading that begins with 'Release'"
+      },
+      {
+        "id": "under-120",
+        "text": "ends right after the last bullet: no closing remark, note, question or sign-off follows the bullets"
+      }
+    ]
+  },
+  {
+    "id": "not-for-rewrite",
+    "prompt": "Rewrite this paragraph in our house tone: 'The system was updated and things work better now, users should be happy.'",
+    "should_fire": false,
+    "expectations": []
+  },
+  {
+    "id": "not-for-orbit",
+    "prompt": "What is the orbit code for widget 12?",
+    "should_fire": false,
+    "expectations": []
+  }
+]

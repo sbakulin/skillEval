@@ -1,0 +1,36 @@
+# skill-reach settings for this repo (tier 0 lint, tier 2 catalog check).
+# Thresholds are the NanoCast gate's: recall ≥ 90 %, misroute ≤ 5 %.
+
+[general]
+default_agent = "claude-code"
+
+[lint]
+max_description_length = 1024
+max_name_length = 64
+min_description_length = 20
+
+[check]
+min_recall = 0.90
+max_misroute = 0.05
+budget = 50
+# Tier 0 already reports lint warnings; a warning must not stop the probes here.
+strict = false
+
+[runtime]
+agent = "claude-code"
+timeout_s = 200
+
+[runtime.options]
+# Claude Code ships built-in skills (doctor, and since 2.1.27x design) that sit
+# in every catalog. skill-reach counts an undeclared resident as a leak and
+# discards the probe, so they are switched off here, as our agents' managed
+# settings do (disableBundledSkills).
+skill_overrides = { doctor = "off", design = "off" }
+
+[plan]
+# Each prompt is probed this many times: selection is not deterministic, so one
+# probe per prompt is a coin toss. 2 keeps a full catalog run near $3 on Sonnet.
+attempts = 2
+
+[catalog]
+mode = "all"   # every skill resident at once — the catalog an agent really sees

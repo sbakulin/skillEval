@@ -1,0 +1,49 @@
+{
+  "derived_from": "catalog/queries.json",
+  "skill": "release-notes",
+  "skill_digest": "074bf70886ba",
+  "should_fire": [
+    {
+      "id": "release-notes-1",
+      "text": "I have a bunch of Jira tickets and commit messages for this sprint, can you turn them into something I can send to customers describing what's new and what got fixed?",
+      "kind": "implicit",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "Directly matches the target's core purpose of converting raw changes into client-facing release notes, distinct from rival 6's general external-writing rules."
+    },
+    {
+      "id": "release-notes-2",
+      "text": "I have a list of internal ticket fixes for this sprint — can you turn it into short release notes our customers will actually see in the changelog?",
+      "kind": "implicit",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "This targets the core purpose of the skill (client-facing release notes from a raw change list) rather than rival 6's general external-writing rules, since it needs the specific structure (headings, word limit, ticket redaction)."
+    },
+    {
+      "id": "release-notes-3",
+      "text": "Draft the changelog entry for this release — group the bug fixes and new features under headings, keep it super short, and don't leak any of our internal branch or module names.",
+      "kind": "implicit",
+      "expected_skill": "release-notes",
+      "acceptable_skills": [],
+      "notes": "This asks for the precise Added/Fixed structure and word-limit/internal-name redaction that only the target documentation specifies, distinguishing it from rival 6's generic 'writing for outsiders' rules which lack headings, word counts, or bullet format."
+    }
+  ],
+  "should_not_fire": [
+    {
+      "id": "adv-release-notes-1",
+      "text": "We're emailing the top 3 clients tonight about the outage postmortem — can you write it up: what happened, then what it means for them, with the latency numbers and baseline included?",
+      "kind": "neighbor_negative",
+      "expected_skill": "writing-style",
+      "acceptable_skills": [],
+      "notes": "The request mentions client-facing writing about changes/incidents, which superficially overlaps with the TARGET's 'release notes a client can read' framing, but it's actually an external incident postmortem needing claim-per-sentence rigor and sourced numbers — a job for the general external-communication rival, not the strict Added/Fixed release-notes template."
+    },
+    {
+      "id": "adv-release-notes-2",
+      "text": "Can you pull the list of every bug fixed this sprint from the tickets table so I can turn it into notes for the client?",
+      "kind": "neighbor_negative",
+      "expected_skill": "data-access",
+      "acceptable_skills": [],
+      "notes": "It name-drops 'fixed' and 'client notes,' echoing the TARGET's Added/Fixed release-notes format, but the actual ask is to query a database table for ticket data — that's the database-access rival's job, and only after that would formatting even become relevant."
+    }
+  ]
+}
